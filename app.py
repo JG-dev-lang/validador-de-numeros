@@ -11,7 +11,7 @@ produtos = [
 
 @app.route("/")
 def home():
-    return "<h1>LojaGenérica do JOTAGE 🛒🔥</h1>"
+    return "<h1>Loja Genérica do JOTAGE 🛒🔥</h1>"
 
 @app.route("/produtos")
 def listar_produtos():
