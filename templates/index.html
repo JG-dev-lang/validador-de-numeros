@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LojaGenérica</title>
+</head>
+<body>
+    <h1>🛒 Loja do JOTAGE</h1>
+
+    <h2>Produtos</h2>
+    <ul id="lista"></ul>
+
+    <h2>Cadastrar Produto</h2>
+    <input id="nome" placeholder="Nome">
+    <input id="preco" placeholder="Preço">
+    <button onclick="cadastrar()">Cadastrar</button>
+
+    <script>
+        async function carregar() {
+            const res = await fetch('/produtos');
+            const data = await res.json();
+
+            const lista = document.getElementById('lista');
+            lista.innerHTML = "";
+
+            data.forEach(p => {
+                lista.innerHTML += `<li>${p.nome} - R$ ${p.preco}</li>`;
+            });
+        }
+
+        async function cadastrar() {
+            const nome = document.getElementById('nome').value;
+            const preco = document.getElementById('preco').value;
+
+            await fetch('/produtos', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({nome, preco})
+            });
+
+            carregar();
+        }
+
+        carregar();
+    </script>
+</body>
+</html>
